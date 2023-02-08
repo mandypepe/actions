@@ -7,7 +7,7 @@ jobs:
             - name: simple Js actions
               id: unicid
               uses: actions/hello-world-javascript-action@master # @commit_id  @branch @ versions
-              whith:
+              with:
                 who-to-greet: mandy
             - name: logs
               run: eho "${{steps.unicid.outputs.time}}"
