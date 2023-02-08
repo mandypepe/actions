@@ -10,11 +10,7 @@ jobs:
         run : |
           node -v
           npm -v
-jobs:
-  run-shell-command:
-    runs-on: ubuntu-latest
-    steps:
-      - name:  PYTHON command
+      - name: python shell
         run: |
            import platform
            print(platform.processor())
