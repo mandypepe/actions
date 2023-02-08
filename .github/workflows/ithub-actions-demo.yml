@@ -23,3 +23,12 @@ jobs:
         - name: bash Dir
           run : pwd
           shell: bash
+  run-serial-jobs:
+    runs-on: ubuntu-latest
+    needs: ['run-shell-command']
+    steps:
+      name : depois run-shell-command
+      run: |
+           import os
+           print(os.environ)
+        shell: python
