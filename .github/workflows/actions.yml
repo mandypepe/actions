@@ -10,4 +10,4 @@ jobs:
               with:
                 who-to-greet: mandy
             - name: logs
-              run: eho "${{steps.unicid.outputs.time}}"
+              run: eho "{steps.unicid.outputs.time}"
