@@ -1,0 +1,13 @@
+name: actions worflow
+on: [push]
+jobs:
+    run-github-actions:
+        runs-on: ubuntu-latest
+        steps:
+            - name: simple Js actions
+              id: unicid
+              uses: actions/hello-world-javascript-action@master # @commit_id  @branch @ versions
+              whith:
+                who-to-greet: mandy
+            - name: logs
+              run: eho "${{steps.unicid.outputs.time}}"
