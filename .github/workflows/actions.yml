@@ -7,7 +7,7 @@ on:
 
 jobs:
     run-github-avtions:
-        run-on:
+        runs-on:
         steps:
             - name: List files
               run: |
