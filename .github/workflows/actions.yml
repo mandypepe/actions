@@ -1,6 +1,6 @@
 name: Using Functions in Expressions
 
-on:  [push] # https://docs.github.com/en/actions/learn-github-actions/expressions#functions
+on:  [push, pull_request] # https://docs.github.com/en/actions/learn-github-actions/expressions#functions
 env:
   WF_ENV: available to all jobs
   JOB_ENV: logs jobs all
