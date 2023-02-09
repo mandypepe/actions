@@ -69,7 +69,7 @@ jobs:
           echo "join(github.event.issue.labels.*.name, ', ')"   
   conditionals:
     runs-on: ubuntu-latest #https://docs.github.com/en/actions/learn-github-actions/expressions#status-check-functions
-    needs: [ 'gest_secrets' ]
+    needs: [ 'create_issue' ]
     steps:
       - name: The job has failed
         if: ${{ failure() }}
