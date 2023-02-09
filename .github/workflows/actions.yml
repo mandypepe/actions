@@ -1,26 +1,12 @@
-name: Filtering Workflows by Branches, Tags & Paths
-on: #https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
-  push:
-    branches:
-      - master
-      - 'feature/*'
-      - 'feature/**'
-      - 'fix/*'
-      - 'fix/**'
-      - '!fix/fix' # ignored for the !
-    #branches-ignore: # not toguether
-    #    - null
-    tags:
-      - v1.*
-    paths:
-      - '**.js'
-      - '!filename.js' # ignored for the !
-    #paths-ignore:
-    #    - 'docs/**'
+name: Default & Custom Environment Variables
+on:  push  #https://docs.github.com/en/actions/learn-github-actions/variables
+env:
+  WF_ENV: available to all jobs
+
 jobs:
-  run-github-avtions:
-    runs-on: ubuntu-latest
+  log-env:
+    runs: ubuntu-latest
     steps:
-      - name: List files
+      - name: Log ENV Variables
         run: |
-          pwd
+          echo "${WF_ENV}"
