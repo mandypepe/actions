@@ -1,5 +1,6 @@
-name: Default & Custom Environment Variables
-on:  [push]  #https://docs.github.com/en/actions/learn-github-actions/variables
+name: Encrypting Environment Variables
+
+on:  [push] # https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 env:
   WF_ENV: available to all jobs
   JOB_ENV: logs jobs all
@@ -7,36 +8,25 @@ env:
   WF_ENV_TOKEN:  ${{ secrets.GITHUB_TOKEN}}
 
 jobs:
-  log-env:
+  create_issue:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
     steps:
-      - name: Log ENV Variables
-        env:
-          STEPVER_ONLY: solo para este step
+      - name: Create issue using REST API
         run: |
-          echo "WF_ENV: ${WF_ENV}"
-          echo "JOB_ENV: ${JOB_ENV}"
-          echo "STEPVER_ONLY: ${STEPVER_ONLY}"
-      - name: Log ENV Variables locals
-        run: |
-            echo "WF_ENV: ${WF_ENV}"
-            echo "JOB_ENV: ${JOB_ENV}"
-            echo "STEPVER_ONLY: ${STEPVER_ONLY}"
-  logs-default-env:
-    runs-on: ubuntu-latest
-    needs: ['log-env']
-    steps:
-      - name: defaultvars ENV
-        run: |
-          echo "HOME: ${HOME}"
-          echo "GITHUB_ACTOR: ${GITHUB_ACTOR}"
-          echo "GITHUB_ACTION: ${GITHUB_ACTION}"
-          echo "GITHUB_ACTIONS: ${GITHUB_ACTIONS}"
-          echo "GITHUB_SHA: ${GITHUB_SHA}"
-          echo "GITHUB_REF: ${GITHUB_REF}"
+          curl --request POST \
+          --url https://api.github.com/repos/${{ github.repository }}/issues \
+          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          --header 'content-type: application/json' \
+          --data '{
+            "title": "Automated issue for commit: ${{ github.sha }}",
+            "body": "This issue was automatically created by the GitHub Action workflow **${{ github.workflow }}**. \n\n The commit hash was: _${{ github.sha }}_."
+            }' \
+          --fail
   gest_secrets:
     runs-on: ubuntu-latest
-    needs: [ 'logs-default-env' ]
+    needs: [ 'create_issue' ]
     steps:
       - name: Hello world action
 

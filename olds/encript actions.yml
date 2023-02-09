@@ -1,0 +1,49 @@
+name: Encrypting Environment Variables
+
+on:  [push]
+env:
+  WF_ENV: available to all jobs
+  JOB_ENV: logs jobs all
+  WF_ENV_SECRET:  ${{ secrets.WF_ENV }}
+  WF_ENV_TOKEN:  ${{ secrets.GITHUB_TOKEN}}
+
+jobs:
+  log-env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log ENV Variables
+        env:
+          STEPVER_ONLY: solo para este step
+        run: |
+          echo "WF_ENV: ${WF_ENV}"
+          echo "JOB_ENV: ${JOB_ENV}"
+          echo "STEPVER_ONLY: ${STEPVER_ONLY}"
+      - name: Log ENV Variables locals
+        run: |
+            echo "WF_ENV: ${WF_ENV}"
+            echo "JOB_ENV: ${JOB_ENV}"
+            echo "STEPVER_ONLY: ${STEPVER_ONLY}"
+  logs-default-env:
+    runs-on: ubuntu-latest
+    needs: ['log-env']
+    steps:
+      - name: defaultvars ENV
+        run: |
+          echo "HOME: ${HOME}"
+          echo "GITHUB_ACTOR: ${GITHUB_ACTOR}"
+          echo "GITHUB_ACTION: ${GITHUB_ACTION}"
+          echo "GITHUB_ACTIONS: ${GITHUB_ACTIONS}"
+          echo "GITHUB_SHA: ${GITHUB_SHA}"
+          echo "GITHUB_REF: ${GITHUB_REF}"
+  gest_secrets:
+    runs-on: ubuntu-latest
+    needs: [ 'logs-default-env' ]
+    steps:
+      - name: Hello world action
+
+        env: # Or as an environment variable
+          super_secret: ${{ secrets.WF_ENV }}
+        run: |
+          echo "super_secret: ${super_secret}"
+          echo "WF_ENV_SECRET: ${WF_ENV_SECRET}"
+          echo "WF_ENV_TOKEN: ${WF_ENV_TOKEN}"

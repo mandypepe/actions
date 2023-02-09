@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f48b87b-e77b-4275-ab1e-6cdc3a67a10b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/olds/encript actions.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.github/workflows/actions.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/actions.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
