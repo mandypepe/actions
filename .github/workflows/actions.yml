@@ -33,7 +33,7 @@ jobs:
           echo "GITHUB_ACTIONS: ${GITHUB_ACTIONS}"
           echo "GITHUB_SHA: ${GITHUB_SHA}"
           echo "GITHUB_REF: ${GITHUB_REF}"
-gest_secrets:
+  gest_secrets:
     runs-on: ubuntu-latest
     needs: [ 'logs-default-env' ]
     steps:
