@@ -1,6 +1,6 @@
-name: Using Functions in Expressions
+name: Expressions & Contexts
 
-on:  [push] # https://docs.github.com/en/actions/learn-github-actions/expressions#functions
+on:  [push] # https://docs.github.com/en/actions/learn-github-actions/contexts
 env:
   WF_ENV: available to all jobs
   JOB_ENV: logs jobs all
@@ -8,7 +8,6 @@ env:
   WF_ENV_TOKEN:  ${{ secrets.GITHUB_TOKEN}}  # numbers comparate strings functions
 
 jobs:
-
   create_issue:
     runs-on: ubuntu-latest
     permissions:
@@ -53,9 +52,3 @@ jobs:
         run: echo '${{ toJSON(strategy) }}'
       - name: Dump matrix context
         run: echo '${{ toJSON(matrix) }}'
-  functions:
-    runs-on: ubuntu-latest
-    needs: [ 'ubuntu-latest' ]
-    steps:
-      - name: funciones
-        run: echo "${{contains(github.event.issue.labels.*.name, 'bug')}}"
