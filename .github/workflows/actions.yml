@@ -9,5 +9,8 @@ jobs:
               uses: actions/hello-world-javascript-action@master # @commit_id  @branch @ versions
               with:
                 who-to-greet: mandy
-            - name: logs
-              run: eho "{steps.unicid.outputs.time}" >>$GITHUB_OUTPUT
+            - name: List files
+              run: |
+                    pwd
+                    ls -latR
+
