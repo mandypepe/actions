@@ -2,6 +2,7 @@ name: Default & Custom Environment Variables
 on:  [push]  #https://docs.github.com/en/actions/learn-github-actions/variables
 env:
   WF_ENV: available to all jobs
+  JOB_ENV: logs jobs all
 
 jobs:
   log-env:
@@ -9,4 +10,5 @@ jobs:
     steps:
       - name: Log ENV Variables
         run: |
-          echo "${WF_ENV}"
+          echo "WF_ENV: ${WF_ENV}"
+          echo "JOB_ENV: ${JOB_ENV}"
