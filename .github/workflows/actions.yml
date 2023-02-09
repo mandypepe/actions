@@ -73,9 +73,13 @@ jobs:
     steps:
       - name: The job has failed
         if: ${{ failure() }}
+        run: echo "${{ failure() }}"
       - name: The job has succeeded
         if: ${{ success() }}
+        run : echo "${{ success() }}"
       - name: The job has always
         if: ${{ always() }}
+        run: echo "${{ always()}}"
       - name: The job has cancelled
         if: ${{ cancelled() }}
+        run: echo "${{ cancelled() }}"
