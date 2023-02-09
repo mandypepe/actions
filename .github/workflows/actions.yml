@@ -10,12 +10,12 @@ jobs:
               with:
                 who-to-greet: mandy
             - name: List files
-                  run: |
+                run: |
                     pwd
                     ls -latR
             - name: Checkout
                   uses: actions/checkout@v1  #download a branch
             - name: List files
-                  run: |
+                run: |
                     pwd
                     ls -latR
