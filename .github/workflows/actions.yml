@@ -20,3 +20,14 @@ jobs:
             echo "WF_ENV: ${WF_ENV}"
             echo "JOB_ENV: ${JOB_ENV}"
             echo "STEPVER_ONLY: ${STEPVER_ONLY}"
+  logs-default-env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: defaultvars ENV
+        run: |
+          echo "HOME: ${HOME}"
+          echo "GITHUB_ACTOR: ${GITHUB_ACTOR}"
+          echo "GITHUB_ACTION: ${GITHUB_ACTION}"
+          echo "GITHUB_ACTIONS: ${GITHUB_ACTIONS}"
+          echo "GITHUB_SHA: ${GITHUB_SHA}"
+          echo "GITHUB_REF: ${GITHUB_REF}"
