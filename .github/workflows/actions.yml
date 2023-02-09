@@ -10,12 +10,12 @@ jobs:
               with:
                 who-to-greet: mandy
             - name: List files
-                run: |
+              run: |
                     pwd
                     ls -latR
             - name: Checkouts
               uses: actions/checkout@v3.3.0
             - name: List files
-                run: |
+              run: |
                     pwd
                     ls -latR
