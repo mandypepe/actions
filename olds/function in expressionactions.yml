@@ -67,15 +67,3 @@ jobs:
         timeout-minutes: ${{ fromJSON(env.time) }}
         run: |
           echo "join(github.event.issue.labels.*.name, ', ')"   
-  conditionals:
-    runs-on: ubuntu-latest #https://docs.github.com/en/actions/learn-github-actions/expressions#status-check-functions
-    needs: [ 'create_issue' ]
-    steps:
-      - name: The job has failed
-        if: ${{ failure() }}
-      - name: The job has succeeded
-        if: ${{ success() }}
-      - name: The job has always
-        if: ${{ always() }}
-      - name: The job has cancelled
-        if: ${{ cancelled() }}
