@@ -7,7 +7,7 @@ on:
 
 jobs:
     run-github-avtions:
-        runs-on:
+        runs-on: ubuntu-latest
         steps:
             - name: List files
               run: |
