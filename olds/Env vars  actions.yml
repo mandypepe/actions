@@ -3,7 +3,6 @@ on:  [push]  #https://docs.github.com/en/actions/learn-github-actions/variables
 env:
   WF_ENV: available to all jobs
   JOB_ENV: logs jobs all
-  WF_ENV_SECRET:  ${{ secrets.WF_ENV }}
 
 jobs:
   log-env:
@@ -33,16 +32,3 @@ jobs:
           echo "GITHUB_ACTIONS: ${GITHUB_ACTIONS}"
           echo "GITHUB_SHA: ${GITHUB_SHA}"
           echo "GITHUB_REF: ${GITHUB_REF}"
-  gest_secrets:
-    - runs-on: ubuntu-latest
-      needs: [ 'logs-default-env' ]
-      steps:
-        - name: Hello world action
-          with: # Set the secret as an input
-            super_secret: ${{ secrets.WF_ENV }}
-          env: # Or as an environment variable
-            super_secret: ${{ secrets.WF_ENV }}
-        - name: defaultvars ENV
-          run: |
-            echo "super_secret: ${super_secret}"
-            echo "WF_ENV_SECRET: ${WF_ENV_SECRET}"
