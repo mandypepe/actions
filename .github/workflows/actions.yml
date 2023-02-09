@@ -1,11 +1,11 @@
 name: Default & Custom Environment Variables
-on:  push  #https://docs.github.com/en/actions/learn-github-actions/variables
+on:  [push]  #https://docs.github.com/en/actions/learn-github-actions/variables
 env:
   WF_ENV: available to all jobs
 
 jobs:
   log-env:
-    runs: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Log ENV Variables
         run: |
