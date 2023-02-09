@@ -1,0 +1,26 @@
+name: Filtering Workflows by Branches, Tags & Paths
+on: #https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
+  push:
+    branches:
+      - master
+      - 'feature/*'
+      - 'feature/**'
+      - 'fix/*'
+      - 'fix/**'
+      - '!fix/fix' # ignored for the !
+    #branches-ignore: # not toguether
+    #    - null
+    tags:
+      - v1.*
+    paths:
+      - '**.js'
+      - '!filename.js' # ignored for the !
+    #paths-ignore:
+    #    - 'docs/**'
+jobs:
+  run-github-avtions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: List files
+        run: |
+          pwd
