@@ -14,8 +14,12 @@ jobs:
                     pwd
                     ls -latR
             - name: Checkouts
-              uses: actions/checkout@v3.3.0
+              uses: actions/checkout@v3.3.0   #download branch to  name space
             - name: List files
               run: |
                     pwd
                     ls -latR
+                    echo $GITHUB_SHA
+                    echo $GITHUB_REPOSITORY
+                    echo $GITHUB_WORKSPACE
+
