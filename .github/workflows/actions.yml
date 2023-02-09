@@ -56,6 +56,7 @@ jobs:
   functions:
     runs-on: ubuntu-latest #https://docs.github.com/en/actions/learn-github-actions/expressions#functions
     needs: [ 'dump_contexts_to_log' ]
+    if: github.event_name== 'push'
     steps:
       - name: funciones
         run: |
@@ -73,4 +74,7 @@ jobs:
     steps:
       - name: event push
         if: github.event_name== 'push'
+        run: echo "${{ github.event_name }}"
+      - name: event push
+        if: failure()
         run: echo "${{ github.event_name }}"
