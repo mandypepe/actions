@@ -4,6 +4,7 @@ env:
   WF_ENV: available to all jobs
   JOB_ENV: logs jobs all
   WF_ENV_SECRET:  ${{ secrets.WF_ENV }}
+  WF_ENV_TOKEN:  ${{ secrets.GITHUB_TOKEN}}
 
 jobs:
   log-env:
@@ -44,3 +45,4 @@ jobs:
         run: |
           echo "super_secret: ${super_secret}"
           echo "WF_ENV_SECRET: ${WF_ENV_SECRET}"
+          echo "WF_ENV_TOKEN: ${WF_ENV_TOKEN}"
