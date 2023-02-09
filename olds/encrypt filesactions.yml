@@ -1,13 +1,24 @@
-name: Expressions & Contexts
+name: Encrypting & Decrypting Files
 
-on:  [push] # https://docs.github.com/en/actions/learn-github-actions/contexts
+on:  [push] # https://docs.github.com/en/actions/security-guides/encrypted-secrets
 env:
   WF_ENV: available to all jobs
   JOB_ENV: logs jobs all
   WF_ENV_SECRET:  ${{ secrets.WF_ENV }}
-  WF_ENV_TOKEN:  ${{ secrets.GITHUB_TOKEN}}  # numbers comparate strings functions
+  WF_ENV_TOKEN:  ${{ secrets.GITHUB_TOKEN}}
 
 jobs:
+  decriptesd:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: decript file
+        run: gpg --quiet --batch --yes --decrypt --passphrase="$PASSHERE" --output $HOME/sercreto.json encripted.json.gpg
+        env:
+          PASSHERE: ${{ secrets.GITHUB_TOKEN}}
+      - name : print our file
+        run: cat $HOME/sercreto.json
+
   create_issue:
     runs-on: ubuntu-latest
     permissions:
@@ -28,27 +39,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ 'create_issue' ]
     steps:
-      - name: print ENV
+      - name: Hello world action
+
         env: # Or as an environment variable
           super_secret: ${{ secrets.WF_ENV }}
         run: |
           echo "super_secret: ${super_secret}"
           echo "WF_ENV_SECRET: ${WF_ENV_SECRET}"
           echo "WF_ENV_TOKEN: ${WF_ENV_TOKEN}"
-  dump_contexts_to_log:
-    runs-on: ubuntu-latest
-    needs: [ 'create_issue' ]
-    steps:
-      - name: Dump GitHub context
-        id: github_context_step
-        run: echo '${{ toJSON(github) }}'
-      - name: Dump job context
-        run: echo '${{ toJSON(job) }}'
-      - name: Dump steps context
-        run: echo '${{ toJSON(steps) }}'
-      - name: Dump runner context
-        run: echo '${{ toJSON(runner) }}'
-      - name: Dump strategy context
-        run: echo '${{ toJSON(strategy) }}'
-      - name: Dump matrix context
-        run: echo '${{ toJSON(matrix) }}'

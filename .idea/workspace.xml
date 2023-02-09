@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f48b87b-e77b-4275-ab1e-6cdc3a67a10b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/olds/git toke actions.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/olds/encrypt filesactions.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.github/workflows/actions.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/actions.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
