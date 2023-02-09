@@ -1,8 +1,7 @@
-name:  Setting a Schedule to Trigger Workflows
+name:  Triggering Workflows Manually Using the Repository Dispatch Event
 on:   #https://docs.github.com/es/rest/repos/repos?apiVersion=2022-11-28#create-a-repository-dispatch-event
-    schedule:
-        - cron: "5 4 * * *" # https://crontab.guru/
-        - cron: "4 5 * * *" # https://crontab.guru/
+    repository_dispatch:
+        types: [build]
     push:
     pull_request:
         types: [closed,assigned,opened,reopened]
