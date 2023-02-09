@@ -1,15 +1,26 @@
-name:  Triggering Workflows Manually Using the Repository Dispatch Event
-on:   #https://docs.github.com/es/rest/repos/repos?apiVersion=2022-11-28#create-a-repository-dispatch-event
-    repository_dispatch:
-        types: [build]
-    push:
-    pull_request:
-        types: [closed,assigned,opened,reopened]
-
+name: Filtering Workflows by Branches, Tags & Paths
+on: #https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
+  push:
+    branches:
+      - master
+      - 'feature/*'
+      - 'feature/**'
+      - 'fix/*'
+      - 'fix/**'
+      - '!fix/fix' # ignored for the !
+    #branches-ignore: # not toguether
+    #    - null
+    tags:
+      - v1.*
+    paths:
+      - '**.js'
+      - '!filename.js' # ignored for the !
+    #paths-ignore:
+    #    - 'docs/**'
 jobs:
-    run-github-avtions:
-        runs-on: ubuntu-latest
-        steps:
-            - name: List files
-              run: |
-                    pwd
+  run-github-avtions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: List files
+        run: |
+          pwd

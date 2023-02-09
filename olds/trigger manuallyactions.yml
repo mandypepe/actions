@@ -1,0 +1,15 @@
+name:  Triggering Workflows Manually Using the Repository Dispatch Event
+on:   #https://docs.github.com/es/rest/repos/repos?apiVersion=2022-11-28#create-a-repository-dispatch-event
+    repository_dispatch:
+        types: [build]
+    push:
+    pull_request:
+        types: [closed,assigned,opened,reopened]
+
+jobs:
+    run-github-avtions:
+        runs-on: ubuntu-latest
+        steps:
+            - name: List files
+              run: |
+                    pwd
