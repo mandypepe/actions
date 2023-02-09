@@ -1,11 +1,9 @@
-name:  Setting a Schedule to Trigger Workflows
-on:   #https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule
-    Schedule:
-        - cron: "5 4 * * *" # https://crontab.guru/
+name: . Triggering a Workflow with Github Events
+#on: [push,pull_request] # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
+on:
     push:
     pull_request:
         types: [closed,assigned,opened,reopened]
-
 
 jobs:
     run-github-avtions:
