@@ -1,0 +1,26 @@
+name: actions worflow
+on: [push]
+jobs:
+    run-github-actions:
+        runs-on: ubuntu-latest
+        steps:
+            - name: simple Js actions
+              id: unicid
+              uses: actions/hello-world-javascript-action@master # @commit_id  @branch @ versions
+              with:
+                who-to-greet: mandy
+            - name: List files
+              run: |
+                    pwd
+                    ls -latR
+            - name: Checkouts
+              uses: actions/checkout@v3.3.0   #download branch to  name space
+            - name: List files
+              run: |
+                    pwd
+                    ls -latR
+                    echo $GITHUB_SHA
+                    echo $GITHUB_REPOSITORY
+                    echo $GITHUB_WORKSPACE
+                    echo $DEPLOYMENT_BASEPATH
+
