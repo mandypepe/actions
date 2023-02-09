@@ -42,7 +42,6 @@ jobs:
           super_secret: ${{ secrets.WF_ENV }}
         env: # Or as an environment variable
           super_secret: ${{ secrets.WF_ENV }}
-      - name: defaultvars ENV
         run: |
           echo "super_secret: ${super_secret}"
           echo "WF_ENV_SECRET: ${WF_ENV_SECRET}"
