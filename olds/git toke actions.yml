@@ -1,6 +1,6 @@
-name: Encrypting & Decrypting Files
+name: Using the GITHUB_TOKEN Secret for Authentication
 
-on:  [push] #
+on:  [push] # https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 env:
   WF_ENV: available to all jobs
   JOB_ENV: logs jobs all
@@ -8,17 +8,6 @@ env:
   WF_ENV_TOKEN:  ${{ secrets.GITHUB_TOKEN}}
 
 jobs:
-  decriptesd:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: decript file
-        run: gpg --quiet --batch --yes --decrypt --passphrase="$PASSHERE" --output $HOME/sercreto.json encripted.json.gpg
-        env:
-          PASSHERE: ${{ secrets.GITHUB_TOKEN}}
-      - name : print our file
-        run: cat $HOME/sercreto.json
-
   create_issue:
     runs-on: ubuntu-latest
     permissions:
