@@ -75,6 +75,6 @@ jobs:
       - name: event push
         if: github.event_name== 'push'
         run: echo "${{ github.event_name }}"
-      - name: event push
+      - name: if fail 
         if: failure()
         run: echo "${{ github.event_name }}"
