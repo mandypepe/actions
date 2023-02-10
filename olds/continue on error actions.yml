@@ -1,0 +1,37 @@
+name: Continue on Error & Timeout Minutes
+
+on:  [push, pull_request] # https://docs.github.com/en/actions/learn-github-actions/expressions#functions
+env:
+  WF_ENV: available to all jobs
+  JOB_ENV: logs jobs all
+  WF_ENV_SECRET:  ${{ secrets.WF_ENV }}
+  WF_ENV_TOKEN:  ${{ secrets.GITHUB_TOKEN}}  # numbers comparate strings functions
+
+jobs:
+  dump_contexts_to_log:
+    runs-on: ubuntu-latest
+    #needs: [ 'create_issue' ]
+    steps:
+      - name: Dump GitHub context
+        id: github_context_step
+        run: echo '${{ toJSON(github) }}'
+
+      - name: Dump job context
+        if: failure()   # step run if  "Dump GitHub context" fail
+        run: echo '${{ toJSON(job) }}'
+
+      - name: Dump steps context
+        run: echo '${{ toJSON(steps) }}'
+        continue-on-error: true   # step run not matter step  before  fails
+
+      - name: Dump runner context
+        run: echo '${{ toJSON(runner) }}'
+        timeout-minutes: 1
+
+      - name: Dump strategy context
+        run: echo '${{ toJSON(strategy) }}'
+
+      - name: Dump matrix context
+        run: echo '${{ toJSON(matrix) }}'
+
+
