@@ -5,6 +5,7 @@ on:  [push, pull_request] #
 
 jobs:
   node-version:
+    runs-on: ubuntu-latest
     steps:
         - name: logs node version
           run: node -v
