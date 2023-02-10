@@ -26,3 +26,13 @@ V
 &olds/function in expressionactions.yml,b/0/b0ea953617b08a7bb97e062d0e15485a89cc4adb
 P
  olds/expre andcontec actions.yml,4/3/4322496b34d4d343b1db87617bffde88a93ca05c
+M
+olds/ifcondictionsactions.yml,c/8/c8b4e1ff75dc72dcc154565727622ecfbbc09277
+R
+"olds/continue on error actions.yml,e/e/ee902d0826a915a95b02ed2c073d7ca0e1c24164
+L
+olds/set up node actions.yml,c/a/cac35ab0e7fceaa871d979cf06e2b36cad048707
+V
+&olds/matrix include excludeactions.yml,0/8/081d153fb0b9927e622b10a6449a58156354aee9
+K
+olds/containers actions.yml,e/1/e1a9175bc38e3c3973e371cf9d643586efc95490
