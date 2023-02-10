@@ -1,0 +1,36 @@
+name: ${{ matrix.node_version }}
+
+on:  [push, pull_request] #
+
+
+jobs:
+  node-version:
+    strategy:
+      matrix:
+        os: [ubuntu-latest,macos-lates,windows-latest]
+        node-version: [6,8,10]
+        include:
+          - os: ubuntu-latest
+            node-version: 8
+            is_ubuntu_8: "true"
+        exclude:
+          - os: macos-lates
+            node-version: 6
+          - os: windows-lates
+            node-version: 8
+
+      fail-fast: true  # Setting fail-fast to false prevents GitHub from cancelling all in-progress jobs if any matrix job fails.
+      # max-parallel: 2  # max jobs executio
+    runs-on: ${{ matrix.os }}
+    env:
+      IS_UBUNTU_8: ${{ matrix.is_ubuntu_8}}
+    steps:
+        - name: logs node version
+          run: node -v
+        - uses: actions/setup-node@v1
+          with:
+            node-version: ${{ matrix.node_version }} #'10.x'
+        - name: logs node version
+          run: |
+            node -v
+            echo $IS_UBUNTU_8
