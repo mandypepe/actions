@@ -1,4 +1,4 @@
-name: Using Functions in Expressions
+name: Continue on Error & Timeout Minutes
 
 on:  [push, pull_request] # https://docs.github.com/en/actions/learn-github-actions/expressions#functions
 env:
@@ -8,73 +8,30 @@ env:
   WF_ENV_TOKEN:  ${{ secrets.GITHUB_TOKEN}}  # numbers comparate strings functions
 
 jobs:
-
-  create_issue:
-    runs-on: ubuntu-latest
-    permissions:
-      issues: write
-    steps:
-      - name: Create issue using REST API
-        run: |
-          curl --request POST \
-          --url https://api.github.com/repos/${{ github.repository }}/issues \
-          --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
-          --header 'content-type: application/json' \
-          --data '{
-            "title": "Automated issue for commit: ${{ github.sha }}",
-            "body": "This issue was automatically created by the GitHub Action workflow **${{ github.workflow }}**. \n\n The commit hash was: _${{ github.sha }}_."
-            }' \
-          --fail
-  gest_secrets:
-    runs-on: ubuntu-latest
-    needs: [ 'create_issue' ]
-    steps:
-      - name: print ENV
-        env: # Or as an environment variable
-          super_secret: ${{ secrets.WF_ENV }}
-        run: |
-          echo "super_secret: ${super_secret}"
-          echo "WF_ENV_SECRET: ${WF_ENV_SECRET}"
-          echo "WF_ENV_TOKEN: ${WF_ENV_TOKEN}"
   dump_contexts_to_log:
     runs-on: ubuntu-latest
-    needs: [ 'create_issue' ]
+    #needs: [ 'create_issue' ]
     steps:
       - name: Dump GitHub context
         id: github_context_step
         run: echo '${{ toJSON(github) }}'
+
       - name: Dump job context
+        if: failure()   # step run if  "Dump GitHub context" fail
         run: echo '${{ toJSON(job) }}'
+
       - name: Dump steps context
         run: echo '${{ toJSON(steps) }}'
+        continue-on-error: true   # step run not matter step  before  fails
+
       - name: Dump runner context
         run: echo '${{ toJSON(runner) }}'
+        timeout-minutes: 1
+
       - name: Dump strategy context
         run: echo '${{ toJSON(strategy) }}'
+
       - name: Dump matrix context
         run: echo '${{ toJSON(matrix) }}'
-  functions:
-    runs-on: ubuntu-latest #https://docs.github.com/en/actions/learn-github-actions/expressions#functions
-    needs: [ 'dump_contexts_to_log' ]
-    if: github.event_name== 'push'
-    steps:
-      - name: funciones
-        run: |
-          echo "${{contains(github.event.issue.labels.*.name, 'bug')}}"    
-          echo "contains(fromJSON('["push", "pull_request"]'), github.event_name)"
-          echo "startsWith('Hello world', 'He')"
-          echo "format('Hello {0} {1} {2}', 'Mona', 'the', 'Octocat')"
-      - continue-on-error: ${{ fromJSON(env.continue) }}
-        timeout-minutes: ${{ fromJSON(env.time) }}
-        run: |
-          echo "join(github.event.issue.labels.*.name, ', ')"
-  conditionals:
-    runs-on: ubuntu-latest #https://docs.github.com/en/actions/learn-github-actions/expressions#status-check-functions
-    needs: [ 'gest_secrets' ]
-    steps:
-      - name: event push
-        if: github.event_name== 'push'
-        run: echo "${{ github.event_name }}"
-      - name: if fail 
-        if: failure()
-        run: echo "${{ github.event_name }}"
+
+
