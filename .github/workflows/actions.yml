@@ -1,16 +1,22 @@
-name: Using the setup-node Action
+name: Creating a Matrix for Running a Job with Different Environments
 
 on:  [push, pull_request] #
 
 
 jobs:
   node-version:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest,macos-lates,windows-latest]
+        node-version: [6,8,10]
+      fail-fast: true  # Setting fail-fast to false prevents GitHub from cancelling all in-progress jobs if any matrix job fails.
+      # max-parallel: 2  # max jobs executio
+    runs-on: ${{ matrix.os }}
     steps:
         - name: logs node version
           run: node -v
         - uses: actions/setup-node@v1
           with:
-            node-version: 6  #'10.x'
+            node-version: ${{ matrix.node_version }} #'10.x'
         - name: logs node version
           run: node -v
